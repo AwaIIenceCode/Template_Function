@@ -1,48 +1,40 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 template <typename T>
-void insertionSort(T arr[], int start, int end, bool descending)
+void findAndSortNegatives(T arr[], int size)
 {
-    for (int i = start + 1; i <= end; i++)
+    int left = -1, right = -1;
+
+    for (int i = 0; i < size; i++)
     {
-        T key = arr[i];
-        int j = i - 1;
-
-        while (j >= start && ((descending && arr[j] < key) || (!descending && arr[j] > key)))
+        if (arr[i] < 0)
         {
-            arr[j + 1] = arr[j];
-            j--;
+            if (left == -1)
+                left = i;
+            right = i;
         }
-
-        arr[j + 1] = key;
     }
-}
 
-template <typename T>
-void sortHalfArray(T arr[], int size)
-{
-    int mid = size / 2;
-
-    insertionSort(arr, 0, mid - 1, true);
-    insertionSort(arr, mid, size - 1, false);
+    if (left != -1 && right != -1 && right > left)
+        sort(arr + left + 1, arr + right);
 }
 
 int main()
 {
-    int arr[10] = {9, 7, 3, 1, 6, 5, 4, 2, 8, 0};
+    int arr[10] = {15, -10, 12, -5, 3, 7, -2, 11, -3, 20};
 
     cout << "Before sorting:\n";
-
     for (int i = 0; i < 10; i++)
         cout << arr[i] << " ";
 
     cout << endl;
 
-    sortHalfArray(arr, 10);
+    findAndSortNegatives(arr, 10);
 
-    cout << "After sorting:\n";
+    cout << "After sorting between negatives:\n";
     for (int i = 0; i < 10; i++)
         cout << arr[i] << " ";
 
