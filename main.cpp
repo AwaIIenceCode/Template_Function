@@ -3,19 +3,33 @@
 using namespace std;
 
 template <typename T>
-double calculateAverage(T arr[], int size)
+void countElements(T arr[], int size, int& positives, int& negatives, int& zeros)
 {
-    T sum = 0;
+    positives = 0;
+    negatives = 0;
+    zeros = 0;
+
     for (int i = 0; i < size; i++)
-        sum += arr[i];
-    return static_cast<double>(sum) / size;
+    {
+        if (arr[i] > 0)
+            positives++;
+        else if (arr[i] < 0)
+            negatives++;
+        else
+            zeros++;
+    }
 }
 
 int main()
 {
-    int arr[5] = {1, 2, 3, 4, 5};
+    int arr[10] = {1, -2, 0, 5, -3, 0, 7, -4, 2, -1};
+    int positives, negatives, zeros;
 
-    cout << "Average -> " << calculateAverage(arr, 5) << endl;
+    countElements(arr, 10, positives, negatives, zeros);
+
+    cout << "Positives: " << positives << endl;
+    cout << "Negatives: " << negatives << endl;
+    cout << "Zeros: " << zeros << endl;
 
     return 0;
 }
