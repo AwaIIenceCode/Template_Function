@@ -1,25 +1,43 @@
 #include <iostream>
+#include <algorithm>
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the
-    // <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
+using namespace std;
 
-    for (int i = 1; i <= 5; i++) {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code.
-        // We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/>
-        // breakpoint for you, but you can always add more by pressing
-        // <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
+template <typename T>
+void sortArray(T arr[], int size, bool descending = false)
+{
+    if (descending)
+    {
+        sort(arr, arr + size, greater<T>());
     }
+    else
+    {
+        sort(arr, arr + size);
+    }
+}
+
+int main()
+{
+    int arr[10] = {5, 1, 8, 3, 9, 2, 7, 4, 6, 0};
+
+    cout << "Before sorting:\n";
+    for (int i = 0; i < 10; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+    cout << endl;
+
+    sortArray(arr, 10, true);
+
+    cout << "After sorting:\n";
+
+    for (int i = 0; i < 10; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+    cout << endl;
 
     return 0;
 }
-
-// TIP See CLion help at <a
-// href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>.
-//  Also, you can try interactive lessons for CLion by selecting
-//  'Help | Learn IDE Features' from the main menu.
