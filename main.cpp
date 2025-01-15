@@ -15,7 +15,7 @@ int main()
 {
     int arr[5] = {1, 2, 3, 4, 5};
 
-    cout << "Average: " << calculateAverage(arr, 5) << endl;
+    cout << "Average -> " << calculateAverage(arr, 5) << endl;
 
     return 0;
 }
