@@ -1,44 +1,51 @@
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
-template <typename T>
-void findAndSortNegatives(T arr[], int size)
+bool isLeapYear(int year)
 {
-    int left = -1, right = -1;
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
 
-    for (int i = 0; i < size; i++)
+int daysInMonth(int month, int year)
+{
+    switch (month)
     {
-        if (arr[i] < 0)
-        {
-            if (left == -1)
-                left = i;
-            right = i;
-        }
+        case 2:
+            return isLeapYear(year) ? 29 : 28;
+        case 4: case 6: case 9: case 11:
+            return 30;
+        default:
+            return 31;
     }
+}
 
-    if (left != -1 && right != -1 && right > left)
-        sort(arr + left + 1, arr + right);
+int calculateDifference(int d1, int m1, int y1, int d2, int m2, int y2)
+{
+    int days1 = d1;
+    for (int i = 1; i < m1; i++)
+        days1 += daysInMonth(i, y1);
+    days1 += y1 * 365 + y1 / 4 - y1 / 100 + y1 / 400;
+
+    int days2 = d2;
+    for (int i = 1; i < m2; i++)
+        days2 += daysInMonth(i, y2);
+    days2 += y2 * 365 + y2 / 4 - y2 / 100 + y2 / 400;
+
+    return abs(days2 - days1);
 }
 
 int main()
 {
-    int arr[10] = {15, -10, 12, -5, 3, 7, -2, 11, -3, 20};
+    int d1, m1, y1, d2, m2, y2;
 
-    cout << "Before sorting:\n";
-    for (int i = 0; i < 10; i++)
-        cout << arr[i] << " ";
+    cout << "Enter first date (day month year): ";
+    cin >> d1 >> m1 >> y1;
 
-    cout << endl;
+    cout << "Enter second date (day month year): ";
+    cin >> d2 >> m2 >> y2;
 
-    findAndSortNegatives(arr, 10);
-
-    cout << "After sorting between negatives:\n";
-    for (int i = 0; i < 10; i++)
-        cout << arr[i] << " ";
-
-    cout << endl;
+    cout << "Difference in days: " << calculateDifference(d1, m1, y1, d2, m2, y2) << endl;
 
     return 0;
 }
